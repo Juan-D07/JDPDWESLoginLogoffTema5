@@ -26,7 +26,6 @@ if (isset($_REQUEST['login'])) {
 
         <main>
             
-            
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                 <input type="submit" name="login" id="login" value="Iniciar Sesion"/>
             </form> 

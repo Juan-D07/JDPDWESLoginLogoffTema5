@@ -1,6 +1,8 @@
 <?php
+//Inicia la sesion
+session_start();
+
 // comprueba si el boton cancelar fue pulsado
-//session_start
 if (isset($_REQUEST['cancelar'])) {
     // encaso de que si, vuelve al indice
     header("Location: ../indexLoginLogoffTema5.php");
@@ -19,11 +21,11 @@ $aError = [
 // Comprueba si el boton login fue pulsado
 if (isset($_REQUEST["login"])) {
     // Validar Entrada
-    $aError["usuario"] = validacionFormularios::comprobarAlfaNumerico($_REQUEST["usuario"],1000,1,1);
+    $aError["usuario"] = validacionFormularios::comprobarAlfaNumerico($_REQUEST["usuario"], 1000, 1, 1);
     // utilizar para la creacion de la contrasena, no la validacion
     //$aError["contrasena"] = validacionFormularios::validarPassword($passwd, $maximo, $minimo, $tipo, $obligatorio);
-    $aError["contrasena"] = validacionFormularios::comprobarAlfaNumerico($_REQUEST["contrasena"],1000,1,1);
-    
+    $aError["contrasena"] = validacionFormularios::comprobarAlfaNumerico($_REQUEST["contrasena"], 1000, 1, 1);
+
     foreach ($aError as $value) {
         if (!empty($value)) {
             $entradaOK = false;
@@ -37,8 +39,8 @@ else {
 // si los datos estan bien,
 // comprueba si el usuario existe en la base de datos
 if ($entradaOK) {
-    try{
-                
+    try {
+
         $miDB = new PDO(DSN, USER, PASS);
 
         $sqlSelect = <<<sql
@@ -49,16 +51,35 @@ if ($entradaOK) {
         // trim elimina espacios antes y despues del texto
         $selectUsuarioContrasena->execute([
             ':codUsuario' => trim($_REQUEST["usuario"]),
-            ':password' => trim($_REQUEST["usuario"]).trim($_REQUEST["contrasena"])
+            ':password' => trim($_REQUEST["usuario"]) . trim($_REQUEST["contrasena"])
         ]);
 
-        if($selectUsuarioContrasena->rowCount()==1){
+        if ($selectUsuarioContrasena->rowCount() != 1) {
+            $usuarioEncontrado = false;
+        } else {
+            //actualizamos el numero de conexiones del usuario
+            $actualizarUsuario = $miDB->prepare(
+                    "UPDATE T01_Usuario 
+                     SET T01_NumConexiones = T01_NumConexiones + 1, 
+                         T01_FechaHoraUltimaConexion = NOW() 
+                     WHERE T01_CodUsuario = :usuarioUpdate"
+            );
+            $actualizarUsuario->execute([':usuarioUpdate' => $_REQUEST["usuario"]]);
+            
+            //creamos el objeto usuario
+            $oUsuario=$selectUsuarioContrasena->fetchObject();
+            // Guardamos en la sesion los datos requeridos para la vista privada
+            $_SESSION['codUsuario'] = $oUsuario->T01_CodUsuario;
+            $_SESSION['descUsuario'] = $oUsuario->T01_DescUsuario;
+            // Sumamos 1 al numero de conexiones para reflejar el acceso actual
+            $_SESSION['numConexiones'] = $oUsuario->T01_NumConexiones + 1;
+            $_SESSION['fechaHoraUltimaConexionAnterior'] = $oUsuario->T01_FechaHoraUltimaConexion;
+
+            // Cerramos conexion y redirigimos al area privada
+            unset($miDB);
             header("Location: ./inicioPrivado.php");
             exit;
-        }else{
-            $usuarioEncontrado=false;
         }
-
     } catch (PDOException $miExceptionPDO) {
 
 
@@ -68,8 +89,7 @@ if ($entradaOK) {
     } finally {
         unset($miDB);
     }
-
-} 
+}
 // Mostrar Login
 ?>
 
@@ -94,28 +114,28 @@ if ($entradaOK) {
 
         <main>
             <div class="container">
-            
-            <h3>Inicia session </h3>
-            <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" novalidate>
-                
-                <label for="usuario" >Usuario:</label>
-                <input type="text" name="usuario" id="usuario" value="<?php echo !empty($_REQUEST["usuario"]) ? $_REQUEST["usuario"]: '' ?>"/>
-                <?php echo !empty($aError["usuario"]) ? "<span style='color:red;'>" . $aError['usuario'] . "</span>": '' ?>
-                <br/><br/>
-                
-                <label for="contrasena" >Contrasena:</label>
-                <input type="password" name="contrasena" id="contrasena" value="<?php echo !empty($_REQUEST["contrasena"]) ? $_REQUEST["contrasena"]: '' ?>"/>
-                <?php echo !empty($aError["contrasena"]) ? "<span style='color:red;'>" . $aError['contrasena'] . "</span>": '' ?>
-                <br/>
-                <input type="submit" name="cancelar" id="cancelar" value="Cancelar"/>
-                <input type="submit" name="login" id="login" value="Log in"/>
-                <br/>
-                <?php echo !$usuarioEncontrado ? "<span style='color:red;'>Usuario no encontrado, nombre de usuario o contrasena incorrecta</span>": '' ?>
-            </form> 
-            
-            
+
+                <h3>Inicia session </h3>
+                <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" novalidate>
+
+                    <label for="usuario" >Usuario:</label>
+                    <input type="text" name="usuario" id="usuario" value="<?php echo!empty($_REQUEST["usuario"]) ? $_REQUEST["usuario"] : '' ?>"/>
+<?php echo!empty($aError["usuario"]) ? "<span style='color:red;'>" . $aError['usuario'] . "</span>" : '' ?>
+                    <br/><br/>
+
+                    <label for="contrasena" >Contrasena:</label>
+                    <input type="password" name="contrasena" id="contrasena" value="<?php echo!empty($_REQUEST["contrasena"]) ? $_REQUEST["contrasena"] : '' ?>"/>
+<?php echo!empty($aError["contrasena"]) ? "<span style='color:red;'>" . $aError['contrasena'] . "</span>" : '' ?>
+                    <br/>
+                    <input type="submit" name="cancelar" id="cancelar" value="Cancelar"/>
+                    <input type="submit" name="login" id="login" value="Log in"/>
+                    <br/>
+<?php echo!$usuarioEncontrado ? "<span style='color:red;'>Usuario no encontrado, nombre de usuario o contrasena incorrecta</span>" : '' ?>
+                </form> 
+
+
             </div>
-            
+
 
         </main>
 

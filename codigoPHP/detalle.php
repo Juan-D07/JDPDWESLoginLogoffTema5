@@ -1,6 +1,14 @@
 <?php
+//Iniciamos sesion
+session_start();
+
+// Si el usuario no ha iniciado la sesion, lo echamos al login
+if (!isset($_SESSION['codUsuario'])) {
+    header("Location: login.php");
+    exit;
+}
+
 // comprueba si el boton volver fue pulsado
-//session_start
 if (isset($_REQUEST['volver'])) {
     header("Location: ./inicioPrivado.php");
 }

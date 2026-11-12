@@ -1,7 +1,16 @@
 <?php
+//Iniciamos la sesion
+session_start();
+
+// Si el usuario no ha iniciado la sesion, lo echamos al login
+if (!isset($_SESSION['codUsuario'])) {
+    header("Location: login.php");
+    exit;
+}
+
 // comprueba si el boton cerrar sesion fue pulsado
-//session_start
 if (isset($_REQUEST['cerrarSesion'])) {
+    session_destroy();
     header("Location: ../indexLoginLogoffTema5.php");
     exit();
 }
@@ -33,7 +42,7 @@ if (isset($_REQUEST['entrarDetalle'])) {
         <main>
             <div class="container">
             
-            <h3>Bienvenido al Accesso Privado </h3>
+            <h3>Bienvenido <?php echo $_SESSION['descUsuario']; ?> al Accesso Privado </h3>
             
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                 <input type="submit" name="cerrarSesion" id="cerrarSesion" value="Cerrar Sesion"/>

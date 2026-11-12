@@ -15,10 +15,6 @@ $usuarioEncontrado = true; //Variable que nos indica si el usuario del login exi
 $aError = [
     'usuario' => "",
     'contrasena' => ""];
-//Array donde recogemos la respuestas correctas
-$aRespuesta = [
-    'usuario' => "",
-    'contrasena' => ""];
 
 // Comprueba si el boton login fue pulsado
 if (isset($_REQUEST["login"])) {
@@ -103,17 +99,17 @@ if ($entradaOK) {
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" novalidate>
                 
                 <label for="usuario" >Usuario:</label>
-                <input type="text" name="usuario" id="usuario" value="<?php echo !empty($_REQUEST["usuario"]) ? htmlspecialchars($_REQUEST["usuario"]): '' ?>"/>
+                <input type="text" name="usuario" id="usuario" value="<?php echo !empty($_REQUEST["usuario"]) ? $_REQUEST["usuario"]: '' ?>"/>
                 <?php echo !empty($aError["usuario"]) ? "<span style='color:red;'>" . $aError['usuario'] . "</span>": '' ?>
                 <br/><br/>
                 
                 <label for="contrasena" >Contrasena:</label>
-                <input type="password" name="contrasena" id="contrasena" value="<?php echo !empty($_REQUEST["contrasena"]) ? htmlspecialchars($_REQUEST["contrasena"]): '' ?>"/>
+                <input type="password" name="contrasena" id="contrasena" value="<?php echo !empty($_REQUEST["contrasena"]) ? $_REQUEST["contrasena"]: '' ?>"/>
                 <?php echo !empty($aError["contrasena"]) ? "<span style='color:red;'>" . $aError['contrasena'] . "</span>": '' ?>
                 <br/>
                 <input type="submit" name="cancelar" id="cancelar" value="Cancelar"/>
                 <input type="submit" name="login" id="login" value="Log in"/>
-                
+                <br/>
                 <?php echo !$usuarioEncontrado ? "<span style='color:red;'>Usuario no encontrado, nombre de usuario o contrasena incorrecta</span>": '' ?>
             </form> 
             
@@ -127,7 +123,7 @@ if ($entradaOK) {
             <address>
                 <p class="foo-txt">
                     © 2026 <span ><a class="miweb-link" href="../../JDPDWESProyectoDWES/indexProyectoDWES.php" >Juan Miguel Dominguez</a></span> Todos los derechos reservados.
-                    <a href="https://github.com/Juan-D07/JDPDWESProyectoTema5" target="_blank"> <img class="github" src="../webroot/images/github.png"  alt="Github logo"/></a>
+                    <a href="https://github.com/Juan-D07/JDPDWESLoginLogoffTema5" target="_blank"> <img class="github" src="../webroot/images/github.png"  alt="Github logo"/></a>
                 </p>
             </address>
         </footer>

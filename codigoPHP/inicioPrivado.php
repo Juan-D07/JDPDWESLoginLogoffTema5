@@ -1,4 +1,16 @@
-
+<?php
+// comprueba si el boton cerrar sesion fue pulsado
+//session_start
+if (isset($_REQUEST['cerrarSesion'])) {
+    header("Location: ../indexLoginLogoffTema5.php");
+    exit();
+}
+// comprueba si el boton entrar detalle fue pulsado
+if (isset($_REQUEST['entrarDetalle'])) {
+    header("Location: ./detalle.php");
+    exit();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +26,7 @@
             <div class="logo">
                 <img src="../webroot/images/logoProyectoTema5.png" alt="logo"/>
             </div>
-            <h2> Inicio Publico</h2>
+            <h2> Inicio Privado</h2>
 
         </header>
 
@@ -22,6 +34,11 @@
             <div class="container">
             
             <h3>Bienvenido al Accesso Privado </h3>
+            
+            <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+                <input type="submit" name="cerrarSesion" id="cerrarSesion" value="Cerrar Sesion"/>
+                <input type="submit" name="entrarDetalle" id="entrarDetalle" value="Entrar Detalle"/>
+            </form> 
 
             </div>
             

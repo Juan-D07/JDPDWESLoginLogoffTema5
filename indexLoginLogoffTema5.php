@@ -1,5 +1,5 @@
 <?php
-// Check if the button with name="my_button" was clicked
+// comprueba si el boton iniciar sesion fue pulsado
 //session_start
 if (isset($_REQUEST['iniciarSesion'])) {
     header("Location: codigoPHP/login.php");

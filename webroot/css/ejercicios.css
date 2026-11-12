@@ -1,108 +1,181 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
-        *{
-            box-sizing: border-box;
-            font-family: Oswald;
-            font-weight: 400; 
-          }
+    *{
+        box-sizing: border-box;
+        font-family: Oswald;
+        font-weight: 400;
+    }
 
-          html{
-            scroll-behavior: smooth;
-          }
+    html{
+        scroll-behavior: smooth;
+    }
 
-          body{
-            margin: 0;
-            color:black;
-            font-family: Roboto, Arial;
-            background-color: rgb(255, 253, 253);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-          }
-
-          
-        header{
-          background-color: rgb(10, 10, 10);
-          color: white;
-          height: 120px;
-          align-items: center;
-          text-align: center;
-        }
+    body{
+        margin: 0;
+        color:black;
+        font-family: Roboto, Arial;
+        background-color: rgb(248, 248, 248);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
 
 
-        h2{
-          font-size: 3vw;
-          border-bottom: 2px solid orange;
-          padding: 4px;
-          margin: 10px 12vw 0;
-          align-self: center;
-        }
+    header{
+        position: relative;
+        background-color: rgb(10, 10, 10);
+        color: white;
+        height: 120px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .logo{
+        position: absolute;
+        left:10px;
+        top:20px;
+        width: 140px;
+        height: 80px;
+    }
+    .logo img{
+        width: 100%;
+        height: 100%;
+    }
+
+
+    h2{
+        font-size: 3vw;
+        width:30vw;
+        border-bottom: 2px solid orange;
+        padding: 4px;
+        margin: 10px auto 0;
+        align-self: center;
+    }
+
+    main{
+        background-color: rgb(248, 248, 248);
+        padding: 20px 50px;
+    }
+
+    h3{
+        font-size: 3.1vw;
+        color: black;
+        margin-top: 0;
+    }
+
+
+
+    .container{
+        background-color: #fff;
+        width: 1000px;
+        box-shadow: 0 16px 20px #aaa;
+        margin: 20px auto;
+        border-radius: 20px;
+        padding: 20px;
+        align-content: center;
+        text-align: center
+    }
+
+
+    input[type="submit"]{
         
-        main{
-            padding: 20px 50px ;
+        background-color: orange;
+        border-radius: 45px;
+        border: none;
+        font-weight: bold;
+        
+        transition: ease-in-out .2s;
+    }
+    
+    #iniciarSesion{
+        height: 70px;
+        width:170px;
+        font-size: 1.5rem;
+        margin-bottom: 40px;
+    }
+    
+    #login, #cancelar{
+        height: 40px;
+        width:100px;
+        font-size: 20px;
+        margin: 20px 20px 0 0 ;
+    }
+
+    input[type="submit"]:hover{
+        color:white;
+        background-color: black;
+        cursor: pointer;
+
+    }
+
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+    a:hover {
+        color: orange;
+    }
+
+    pre *{
+        font-family:monospace;
+        font-weight: 700;
+    }
+
+    footer{
+        margin-top: auto;
+        background-color: rgb(10, 10, 10);
+        padding: 4px;
+        color:white;
+        font-size: 20px;
+        font-style:normal;
+    }
+
+    .foo-txt{
+        text-align: center;
+    }
+
+    .miweb-link{
+        color:white;
+        text-decoration: none;
+    }
+
+    .miweb-link:hover{
+        color:orange;
+    }
+
+    .github{
+        height:30px;
+        padding-left: 10px;
+    }
+
+    .casa{
+        height:30px;
+        padding-left: 10px;
+    }
+
+
+    @media (min-width:621px) and (max-width: 1001px){
+        h2{
+            font-size: 30px;
+        }
+        .container{
+            width: 500px;
+        }
+    }
+
+    @media (max-width: 620px){
+        h2{
+            font-size: 20px;
         }
 
-          a {
-            text-decoration: none; 
-            color: black;
-          }
-          a:hover {
-            color: orange;
-          }
-          
-          pre *{
-              font-family:monospace;
-              font-weight: 700;
-          }
-          
-        footer{
-            margin-top: auto;
-            background-color: rgb(10, 10, 10);
-            padding: 4px;
-            color:white;
-            font-size: 20px;
-            font-style:normal;
-          }
+    }
 
-          .foo-txt{
-            text-align: center;
-          }
-
-          .miweb-link{
-            color:white;
-            text-decoration: none;
-          }
-
-          .miweb-link:hover{
-            color:orange;
-          }
-          
-          .github{
-            height:30px;
-            padding-left: 10px;  
-          }
-          
-          .casa{
-            height:30px;
-            padding-left: 10px;  
-          }
-
-
-          @media (min-width:621px) and (max-width: 1001px){
-              h2{
-              font-size: 20px;
-            }
-          }
-
-          @media (max-width: 620px){
-             h2{
-              font-size: 16px;
-            }
-
-          }
-
-          @media (min-width: 1800px){
-            h2{
-              font-size: 36px;
-            }
-          }
+    @media (min-width: 1800px){
+        h2{
+            font-size: 44px;
+        }
+        h3{
+            font-size: 48px;
+        }
+    }

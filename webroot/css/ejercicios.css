@@ -95,7 +95,8 @@
     }
     
     #iniciarSesion, #entrarDetalle, #cerrarSesion{
-        font-size: 15px;
+        font-size: 18px;
+        width:120px;
         margin: 0 10px 40px 10px;
     }
     

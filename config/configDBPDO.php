@@ -10,7 +10,7 @@
 //define('PASS', "paso");
 
 //Configuracion de Clase
-define('DSN', "mysql:host=10.199.9.114;dbname=DBJDPDWESProyectoTema5;");
+define('DSN', "mysql:host=10.199.11.252;dbname=DBJDPDWESProyectoTema5;");
 define('USER', "userJDPDWESProyectoTema5");
 define('PASS', "paso");
 

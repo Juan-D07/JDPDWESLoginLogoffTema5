@@ -2,6 +2,12 @@
 //Inicia la sesion
 session_start();
 
+// Si el usuario ya ha iniciado la sesion, lo redireccionamos al accesso privado
+if (isset($_SESSION['usuarioJDPDWESLoginLogoffTema5'])) {
+    header("Location: inicioPrivado.php");
+    exit;
+}
+
 // comprueba si el boton cancelar fue pulsado
 if (isset($_REQUEST['cancelar'])) {
     // encaso de que si, vuelve al indice
@@ -51,13 +57,13 @@ if ($entradaOK) {
         // trim elimina espacios antes y despues del texto
         $selectUsuarioContrasena->execute([
             ':codUsuario' => trim($_REQUEST["usuario"]),
-            ':password' => trim($_REQUEST["usuario"]) . trim($_REQUEST["contrasena"])
+            ':password' => trim($_REQUEST["usuario"].$_REQUEST["contrasena"])
         ]);
 
         if ($selectUsuarioContrasena->rowCount() != 1) {
             $usuarioEncontrado = false;
         } else {
-            //actualizamos el numero de conexiones del usuario
+            //actualizamos los datos del usuario
             $actualizarUsuario = $miDB->prepare(
                     "UPDATE T01_Usuario 
                      SET T01_NumConexiones = T01_NumConexiones + 1, 
@@ -67,13 +73,13 @@ if ($entradaOK) {
             $actualizarUsuario->execute([':usuarioUpdate' => $_REQUEST["usuario"]]);
             
             //creamos el objeto usuario
-            $oUsuario=$selectUsuarioContrasena->fetchObject();
+            $oUsuario=$selectUsuarioContrasena->fetch();
             // Guardamos en la sesion los datos requeridos para la vista privada
-            $_SESSION['codUsuario'] = $oUsuario->T01_CodUsuario;
-            $_SESSION['descUsuario'] = $oUsuario->T01_DescUsuario;
+            $_SESSION['usuarioJDPDWESLoginLogoffTema5'] = $oUsuario;
+            //$_SESSION['descUsuario'] = $oUsuario->T01_DescUsuario;
             // Sumamos 1 al numero de conexiones para reflejar el acceso actual
-            $_SESSION['numConexiones'] = $oUsuario->T01_NumConexiones + 1;
-            $_SESSION['fechaHoraUltimaConexionAnterior'] = $oUsuario->T01_FechaHoraUltimaConexion;
+            //$_SESSION['numConexiones'] = $oUsuario->T01_NumConexiones + 1;
+            //$_SESSION['fechaHoraUltimaConexionAnterior'] = $oUsuario->T01_FechaHoraUltimaConexion;
 
             // Cerramos conexion y redirigimos al area privada
             unset($miDB);

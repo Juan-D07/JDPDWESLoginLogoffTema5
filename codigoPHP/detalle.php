@@ -68,7 +68,7 @@ if (isset($_REQUEST['volver'])) {
                             if (is_array($contenido)) {
                                 $contenido = "<pre>" . print_r($contenido, true) . "</pre>";
                             }
-                            echo "<li><span style='color:blue;font-weight:bold'>$nombre : </span>" . htmlspecialchars($contenido) . "</li>";
+                            echo "<li><span style='color:blue;font-weight:bold'>$nombre : </span> $contenido</li>";
                         }
                         echo "</ul>";
                     } else {

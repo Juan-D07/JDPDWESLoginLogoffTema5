@@ -10,6 +10,7 @@ INSERT INTO T02_Departamento VALUES
 INSERT INTO T01_Usuario  VALUES
 ('admin', SHA2('adminpaso', 256), 'Administrador del sistema', null, 0, 'admin'),
 ('moises', SHA2('moisespaso', 256), 'Moisés Alberto Domínguez Cruz', null, 0, 'usuario'),
-('juan', SHA2('juanpaso', 256), 'Juan Miguel Dominguez Perdigon', null, 0, 'usuario'),
+('juan', SHA2('juanpaso', 256), 'Juan Rivera', null, 0, 'usuario'),
+('juanmi', SHA2('juanmipaso', 256), 'Juan Miguel Dominguez', null, 0, 'usuario'),
 ('heraclio', SHA2('heracliopaso', 256), 'Heraclio', null, 0, 'usuario'),
 ('amor', SHA2('amorpaso', 256), 'amor <3', null, 0, 'usuario');

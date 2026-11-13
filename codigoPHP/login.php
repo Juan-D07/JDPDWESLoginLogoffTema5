@@ -1,4 +1,5 @@
 <?php
+
 //Inicia la sesion
 session_start();
 
@@ -18,7 +19,6 @@ require_once '../config/configDBPDO.php';
 require_once '../core/libreriaValidacion.php';
 //Inicializacion de variables
 $entradaOK = true; // Variable que nos indica que todo va bien
-$usuarioEncontrado = true; //Variable que nos indica si el usuario del login existe
 //Array donde recogemos los mensajes de error
 $aError = [
     'usuario' => "",
@@ -37,6 +37,33 @@ if (isset($_REQUEST["login"])) {
             $entradaOK = false;
         }
     }
+    try {
+
+        $miDB = new PDO(DSN, USER, PASS);
+
+        $sqlSelect = <<<sql
+        SELECT * FROM T01_Usuario
+        WHERE T01_CodUsuario = :codUsuario and T01_Password = SHA2(:contrasena,256)
+        sql;
+        $selectUsuarioContrasena = $miDB->prepare($sqlSelect);
+        // trim elimina espacios antes y despues del texto
+        $selectUsuarioContrasena->execute([
+            ':codUsuario' => trim($_REQUEST["usuario"]),
+            ':contrasena' => trim($_REQUEST["usuario"].$_REQUEST["contrasena"])
+        ]);
+
+        if ($selectUsuarioContrasena->rowCount() != 1) {
+            $entradaOK = false;
+            $aErrores['contrasena'] = "Error al iniciar la sesion, usuario o contraseña incorrectos.";
+        }
+    } catch (PDOException $miExceptionPDO) {
+
+        echo "<h3 style='margin-top:0;'>Error en la base de datos.</h3>";
+        echo "<p><b>Mensaje:</b> " . $miExceptionPDO->getMessage() . "</p>";
+        echo "<p><b>Código:</b> " . $miExceptionPDO->getCode() . "</p>";
+        unset($miDB);
+    }
+
 }
 // El formulario no se ha enviado nunca
 else {
@@ -45,57 +72,29 @@ else {
 // si los datos estan bien,
 // comprueba si el usuario existe en la base de datos
 if ($entradaOK) {
-    try {
+    //actualizamos los datos del usuario
+    $actualizarUsuario = $miDB->prepare(
+            "UPDATE T01_Usuario 
+             SET T01_NumConexiones = T01_NumConexiones + 1, 
+                 T01_FechaHoraUltimaConexion = NOW() 
+             WHERE T01_CodUsuario = :usuarioUpdate"
+    );
+    $actualizarUsuario->execute([':usuarioUpdate' => $_REQUEST["usuario"]]);
 
-        $miDB = new PDO(DSN, USER, PASS);
-
-        $sqlSelect = <<<sql
-        SELECT * FROM T01_Usuario
-        WHERE T01_CodUsuario = :codUsuario and T01_Password = SHA2(:password,256)
-        sql;
-        $selectUsuarioContrasena = $miDB->prepare($sqlSelect);
-        // trim elimina espacios antes y despues del texto
-        $selectUsuarioContrasena->execute([
-            ':codUsuario' => trim($_REQUEST["usuario"]),
-            ':password' => trim($_REQUEST["usuario"].$_REQUEST["contrasena"])
-        ]);
-
-        if ($selectUsuarioContrasena->rowCount() != 1) {
-            $usuarioEncontrado = false;
-        } else {
-            //actualizamos los datos del usuario
-            $actualizarUsuario = $miDB->prepare(
-                    "UPDATE T01_Usuario 
-                     SET T01_NumConexiones = T01_NumConexiones + 1, 
-                         T01_FechaHoraUltimaConexion = NOW() 
-                     WHERE T01_CodUsuario = :usuarioUpdate"
-            );
-            $actualizarUsuario->execute([':usuarioUpdate' => $_REQUEST["usuario"]]);
-            
-            //creamos el objeto usuario
-            $oUsuario=$selectUsuarioContrasena->fetch();
-            // Guardamos en la sesion los datos requeridos para la vista privada
-            $_SESSION['usuarioJDPDWESLoginLogoffTema5'] = $oUsuario;
-            //$_SESSION['descUsuario'] = $oUsuario->T01_DescUsuario;
-            // Sumamos 1 al numero de conexiones para reflejar el acceso actual
-            //$_SESSION['numConexiones'] = $oUsuario->T01_NumConexiones + 1;
-            //$_SESSION['fechaHoraUltimaConexionAnterior'] = $oUsuario->T01_FechaHoraUltimaConexion;
-
-            // Cerramos conexion y redirigimos al area privada
-            unset($miDB);
-            header("Location: ./inicioPrivado.php");
-            exit;
-        }
-    } catch (PDOException $miExceptionPDO) {
+    //creamos el objeto usuario
+    $aUsuario=$selectUsuarioContrasena->fetch();
+    // Guardamos en la sesion los datos requeridos para la vista privada
+    $_SESSION['usuarioJDPDWESLoginLogoffTema5'] = $aUsuario;
 
 
-        echo "<h3 style='margin-top:0;'>Error en la base de datos.</h3>";
-        echo "<p><b>Mensaje:</b> " . $miExceptionPDO->getMessage() . "</p>";
-        echo "<p><b>Código:</b> " . $miExceptionPDO->getCode() . "</p>";
-    } finally {
-        unset($miDB);
-    }
+    // Cerramos conexion y redirigimos al area privada
+    unset($miDB);
+    header("Location: ./inicioPrivado.php");
+    exit;
 }
+//Cerramos conexion si la entrada es false
+unset($miDB);
+
 // Mostrar Login
 ?>
 
@@ -136,7 +135,6 @@ if ($entradaOK) {
                     <input type="submit" name="cancelar" id="cancelar" value="Cancelar"/>
                     <input type="submit" name="login" id="login" value="Log in"/>
                     <br/>
-<?php echo!$usuarioEncontrado ? "<span style='color:red;'>Usuario no encontrado, nombre de usuario o contrasena incorrecta</span>" : '' ?>
                 </form> 
 
 

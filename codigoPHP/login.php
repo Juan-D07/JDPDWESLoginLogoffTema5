@@ -1,14 +1,5 @@
 <?php
 
-//Inicia la sesion
-session_start();
-
-// Si el usuario ya ha iniciado la sesion, lo redireccionamos al accesso privado
-if (isset($_SESSION['usuarioJDPDWESLoginLogoffTema5'])) {
-    header("Location: inicioPrivado.php");
-    exit;
-}
-
 // comprueba si el boton cancelar fue pulsado
 if (isset($_REQUEST['cancelar'])) {
     // encaso de que si, vuelve al indice
@@ -54,7 +45,7 @@ if (isset($_REQUEST["login"])) {
 
         if ($selectUsuarioContrasena->rowCount() != 1) {
             $entradaOK = false;
-            $aErrores['contrasena'] = "Error al iniciar la sesion, usuario o contraseña incorrectos.";
+            $aError['contrasena'] = "Error al iniciar la sesion, usuario o contraseña incorrectos.";
         }
     } catch (PDOException $miExceptionPDO) {
 
@@ -72,6 +63,8 @@ else {
 // si los datos estan bien,
 // comprueba si el usuario existe en la base de datos
 if ($entradaOK) {
+    //Inicia la sesion
+    session_start();
     //actualizamos los datos del usuario
     $actualizarUsuario = $miDB->prepare(
             "UPDATE T01_Usuario 

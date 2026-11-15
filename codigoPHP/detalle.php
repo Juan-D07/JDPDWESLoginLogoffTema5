@@ -25,6 +25,16 @@ if (isset($_REQUEST['volver'])) {
             .container{
                 text-align: left;
             }
+            
+            pre, li, h1,.vacio{
+                color:black;
+            }
+            
+            li{
+                color:black
+            }
+            
+            
         </style>
 
 

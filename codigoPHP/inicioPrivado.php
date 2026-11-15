@@ -14,6 +14,11 @@ if (isset($_REQUEST['cerrarSesion'])) {
     header("Location: ../indexLoginLogoffTema5.php");
     exit();
 }
+// comprueba si el boton editar perfil fue pulsado
+if (isset($_REQUEST['editarPerfil'])) {
+    header("Location: ./editarPerfil.php");
+    exit();
+}
 // comprueba si el boton entrar detalle fue pulsado
 if (isset($_REQUEST['entrarDetalle'])) {
     header("Location: ./detalle.php");
@@ -45,8 +50,9 @@ if (isset($_REQUEST['entrarDetalle'])) {
             <h3>Bienvenido <?php echo $_SESSION['usuarioJDPDWESLoginLogoffTema5']['T01_DescUsuario']; ?> al Accesso Privado </h3>
             
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-                <input type="submit" name="cerrarSesion" id="cerrarSesion" value="Cerrar Sesion"/>
-                <input type="submit" name="entrarDetalle" id="entrarDetalle" value="Entrar Detalle"/>
+                <input type="submit" name="cerrarSesion" id="cerrarSesion" class="botonLargo" value="Cerrar Sesion"/>
+                <input type="submit" name="editarPerfil" id="editarPerfil" class="botonLargo" value="Editar Perfil"/>
+                <input type="submit" name="entrarDetalle" id="entrarDetalle" class="botonLargo" value="Entrar Detalle"/>
             </form> 
 
             </div>

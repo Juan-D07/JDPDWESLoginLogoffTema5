@@ -94,9 +94,15 @@
         transition: ease-in-out .2s;
     }
     
-    #iniciarSesion, #entrarDetalle, #cerrarSesion{
+    #iniciarSesion, #entrarDetalle, #cerrarSesion, #crearUsuario, #registrarse, #editarPerfil, .botonLargo{
         font-size: 18px;
         width:120px;
+        margin: 0 10px 40px 10px;
+    }
+    
+    #cambiarPassword, #aplicarCambios,#eliminarCuenta, #cambiarContrasena{
+        font-size: 16px;
+        width:150px;
         margin: 0 10px 40px 10px;
     }
     
@@ -110,7 +116,33 @@
         cursor: pointer;
 
     }
+    
+    .formularioUsuario{
+        margin: 20px auto;
+    }
 
+    
+    .formularioUsuario tr{
+        td{
+            padding-bottom: 20px;
+        }
+        td:nth-child(1){
+            width: 450px;
+            text-align: right;
+        }
+        td:nth-child(2){
+            width: 50px;
+        }
+        td:nth-child(3){
+            width: 400px;
+            color:red;
+            text-align: left;
+        }
+    }
+    
+    
+    
+    
     a {
         text-decoration: none;
         color: black;

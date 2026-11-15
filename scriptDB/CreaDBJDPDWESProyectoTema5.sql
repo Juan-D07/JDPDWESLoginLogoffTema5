@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS DBJDPDWESProyectoTema5;
 USE DBJDPDWESProyectoTema5;
 
 CREATE TABLE IF NOT EXISTS T01_Usuario (
-    T01_CodUsuario VARCHAR(8) PRIMARY KEY,
+    T01_CodUsuario VARCHAR(255) PRIMARY KEY,
     T01_Password VARCHAR(255),
     T01_DescUsuario VARCHAR(255),
     T01_NumConexiones int default 0,

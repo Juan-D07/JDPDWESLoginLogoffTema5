@@ -1,8 +1,14 @@
 <?php
 // comprueba si el boton iniciar sesion fue pulsado
-//session_start
 if (isset($_REQUEST['iniciarSesion'])) {
     header("Location: codigoPHP/login.php");
+    exit;
+}
+
+// comprueba si el boton registrarse fue pulsado
+if (isset($_REQUEST['registrarse'])) {
+    header("Location: codigoPHP/registro.php");
+    exit;
 }
 ?>
 
@@ -29,7 +35,8 @@ if (isset($_REQUEST['iniciarSesion'])) {
             
             <h3>Bienvenido a Proyecto Login Logoff </h3>
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-                <input type="submit" name="iniciarSesion" id="iniciarSesion" value="Iniciar Sesion"/>
+                <input type="submit" name="iniciarSesion" id="iniciarSesion" class="botonLargo" value="Iniciar Sesion"/>
+                <input type="submit" name="registrarse" id="registrarse" class="botonLargo" value="Registrarse"/>
             </form> 
             
             <img src="webroot/images/arbolNavegacion.png" alt="alt"/>

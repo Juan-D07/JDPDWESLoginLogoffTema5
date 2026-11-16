@@ -1,14 +1,11 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 require_once '../config/configDBPDO.php';
 require_once '../core/libreriaValidacion.php';
 //reanuda la sesion
 session_start();
 
-// Si el usuario no ha iniciado la sesion, lo echamos al login
+// Si el usuario no ha iniciado la sesion, lo redirigimos al login
 if (!isset($_SESSION['usuarioJDPDWESLoginLogoffTema5'])) {
     header("Location: ./login.php");
     exit;
@@ -74,7 +71,7 @@ if ($entradaOK) {
         ':codUsuario' => $_SESSION['usuarioJDPDWESLoginLogoffTema5']['T01_CodUsuario']]);
 
     //recogemos usuario
-    $aUsuario=$selectUsuario->fetch();
+    $aUsuario=$selectUsuario->fetch(PDO::FETCH_ASSOC);
     // Guardamos en la sesion los datos requeridos para la vista privada
     $_SESSION['usuarioJDPDWESLoginLogoffTema5'] = $aUsuario;
 

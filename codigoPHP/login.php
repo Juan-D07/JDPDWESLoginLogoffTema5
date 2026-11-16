@@ -75,7 +75,7 @@ if ($entradaOK) {
     $actualizarUsuario->execute([':usuarioUpdate' => $_REQUEST["usuario"]]);
 
     //creamos el objeto usuario
-    $aUsuario=$selectUsuarioContrasena->fetch();
+    $aUsuario=$selectUsuarioContrasena->fetch(PDO::FETCH_ASSOC);
     // Guardamos en la sesion los datos requeridos para la vista privada
     $_SESSION['usuarioJDPDWESLoginLogoffTema5'] = $aUsuario;
 

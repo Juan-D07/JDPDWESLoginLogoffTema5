@@ -2,7 +2,7 @@
 //Iniciamos la sesion
 session_start();
 
-// Si el usuario no ha iniciado la sesion, lo echamos al login
+// Si el usuario no ha iniciado la sesion, lo redirigimos al login
 if (!isset($_SESSION['usuarioJDPDWESLoginLogoffTema5'])) {
     header("Location: login.php");
     exit;

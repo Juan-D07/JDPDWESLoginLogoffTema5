@@ -1,16 +1,13 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 require_once '../config/configDBPDO.php';
 require_once '../core/libreriaValidacion.php';
 //reanuda la sesion
 session_start();
 
-// Si el usuario no ha iniciado la sesion, lo echamos al login
+// Si el usuario no ha iniciado la sesion, lo redirigimos al login
 if (!isset($_SESSION['usuarioJDPDWESLoginLogoffTema5'])) {
-    header("Location: login.php");
+    header("Location: ./login.php");
     exit;
 }
 // comprueba si el boton cancelar fue pulsado
@@ -28,7 +25,7 @@ function confirmarContrasena(){
         WHERE T01_Password = SHA2(:contrasena,256)
         sql;
         $selectUsuarioContrasena = $miDB->prepare($sqlSelectContrasena);
-        // trim elimina espacios antes y despues del texto
+        // trim elimina espacios antes y despues del texto, saneamiento de datos
         $selectUsuarioContrasena->execute([
             ':contrasena' => $_SESSION['usuarioJDPDWESLoginLogoffTema5']['T01_CodUsuario'].trim($_REQUEST["contrasena"])
         ]);
@@ -54,11 +51,12 @@ $sDescripcionMostrar= empty($_REQUEST["descripcion"])?$_SESSION['usuarioJDPDWESL
 
 // comprueba si el boton eliminar fue pulsado
 if (isset($_REQUEST['eliminarCuenta'])) {
+    //comprobacion de la contraseña
     if(!confirmarContrasena()){
         $aError['contrasena'] = "Contraseña incorrecta, vuelva a intentar";
     }
     else{
-    // comprobar que el nombre del usuario no exista
+    // elimina el usuario de la bases de datos
         try {
             $miDB = new PDO(DSN, USER, PASS);
 
@@ -88,16 +86,18 @@ if (isset($_REQUEST['eliminarCuenta'])) {
 
 // comprueba si el boton eliminar fue pulsado
 if (isset($_REQUEST['cambiarPassword'])) {
+    //comprobacion de la contraseña
     if(!confirmarContrasena()){
         $aError['contrasena'] = "Contraseña incorrecta, vuelva a intentar";
     }
+    //mover usuario a otra pantalla
     else{
         header("Location: ./cambiarPassword.php");
         exit;
     }
 }
 
-// Comprueba si el boton crear fue pulsado
+// Comprueba si el boton aplicar cambios fue pulsado
 if (isset($_REQUEST["aplicarCambios"])) {
     $entradaOK = true; // Variable que nos indica que todo va bien
     // Validacion de entrada Entrada
@@ -110,13 +110,13 @@ if (isset($_REQUEST["aplicarCambios"])) {
             $entradaOK = false;
         }
     }
-    
+    //comprobacion de la contraseña
     if(!confirmarContrasena()){
         $entradaOK = false;
         $aError['contrasena'] = "Contraseña incorrecta, vuelva a intentar";
     }
     
-    // comprobar que el nombre del usuario no exista
+    // comprobar que el nombre del usuario no exista en la bases de datos
     try {
 
         $miDB = new PDO(DSN, USER, PASS);
@@ -130,7 +130,9 @@ if (isset($_REQUEST["aplicarCambios"])) {
         $selectUsuario->execute([
             ':codUsuario' => trim($_REQUEST["usuario"])
         ]);
-        echo $selectUsuario->rowCount();
+        //al buscar por el nombre
+        //mientras que no haiga mas de una fila con el mismo nombre de usuario (cambio de nombre),
+        //o que haiga una fila pero tenga el mismo nombre de usuario que el 
         if (!($selectUsuario->rowCount() == 0 ||($selectUsuario->rowCount() == 1 && $selectUsuario->fetchObject()->T01_CodUsuario == $_SESSION['usuarioJDPDWESLoginLogoffTema5']['T01_CodUsuario']))) {
             $entradaOK = false;
             $aError['usuario'] = "Error al editar la cuenta, ya existe un usuario con el mismo nombre";
@@ -167,7 +169,7 @@ if (isset($_REQUEST["aplicarCambios"])) {
         ]);
 
         //recogemos usuario
-        $aUsuario=$selectUsuario->fetch();
+        $aUsuario=$selectUsuario->fetch(PDO::FETCH_ASSOC);
         // Guardamos en la sesion los datos requeridos para la vista privada
         $_SESSION['usuarioJDPDWESLoginLogoffTema5'] = $aUsuario;
 

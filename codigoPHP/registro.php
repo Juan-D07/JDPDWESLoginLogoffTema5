@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 // comprueba si el boton cancelar fue pulsado
 if (isset($_REQUEST['cancelar'])) {
     // encaso de que si, vuelve al indice
@@ -35,7 +32,7 @@ if (isset($_REQUEST["crearUsuario"])) {
         }
     }
     
-    // comprobar que el nombre del usuario no exista
+    // comprobar que el nombre del usuario no exista en la bases de datos
     try {
 
         $miDB = new PDO(DSN, USER, PASS);
@@ -45,7 +42,7 @@ if (isset($_REQUEST["crearUsuario"])) {
         WHERE T01_CodUsuario = :codUsuario
         sql;
         $selectUsuario = $miDB->prepare($sqlSelect);
-        // trim elimina espacios antes y despues del texto
+        // trim elimina espacios antes y despues del texto, saneamiento de datos
         $selectUsuario->execute([
             ':codUsuario' => trim($_REQUEST["usuario"])
         ]);

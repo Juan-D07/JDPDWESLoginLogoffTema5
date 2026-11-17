@@ -63,6 +63,10 @@
         margin-top: 0;
     }
     
+    h4 span{
+        font-weight: bold;
+    }
+    
     .superGlobal{
         font-size: 2vw;
         margin-top: 20px;
@@ -92,6 +96,12 @@
         border: none;
         font-weight: bold;
         transition: ease-in-out .2s;
+    }
+    
+    input[readonly]{
+        background-color: #e0e0e0;
+        border: 1px solid black;
+        border-radius: 2px; 
     }
     
     #iniciarSesion, #entrarDetalle, #cerrarSesion, #crearUsuario, #registrarse, #editarPerfil, .botonLargo{

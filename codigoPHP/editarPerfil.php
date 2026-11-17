@@ -212,7 +212,7 @@ unset($miDB);
                     <table class="formularioUsuario">
                         <tr>
                     <td><label for="usuario" >Usuario:</label></td>
-                    <td><input type="text" name="usuario" id="usuario" value="<?php echo empty($aError["usuario"]) ? "$sUsuarioMostrar" : '' ?>"/></td>
+                    <td><input type="text" name="usuario" id="usuario" value="<?php echo empty($aError["usuario"]) ? "$sUsuarioMostrar" : '' ?>" readonly/></td>
 <?php echo!empty($aError["usuario"]) ? "<td><span style='color:red;'>" . $aError['usuario'] . "</span></td>" : '<td></td>' ?>
                         </tr>
                         <tr>

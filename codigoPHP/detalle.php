@@ -1,5 +1,5 @@
 <?php
-//Iniciamos sesion
+//Reanudar sesion
 session_start();
 
 // Si el usuario no ha iniciado la sesion, lo redirigimos al login

@@ -41,6 +41,13 @@ if (isset($_REQUEST['entrarDetalle'])) {
                 <img src="../webroot/images/logoProyectoTema5.png" alt="logo"/>
             </div>
             <h2> Inicio Privado</h2>
+            <div class="idiomaDiv">
+                <select name="idioma" id="idioma">
+                    <option value="es"><img src="../webroot/images/ES.png" alt="alt"/></option>
+                    <option value="en"><img src="../webroot/images/EN.png" alt="alt"/></option>
+                    <option value="pt"><img src="../webroot/images/PT.png" alt="alt"/></option>
+                </select>
+            </div>
 
         </header>
 

@@ -8,9 +8,9 @@ INSERT INTO T02_Departamento VALUES
 ('MKT', 'Marketing Digital', '2019-02-20 08:15:00', 150000.25, '2025-12-31 18:00:00');
 
 INSERT INTO T01_Usuario  VALUES
-('admin', SHA2('adminpaso', 256), 'Administrador del sistema', null, 0, 'admin'),
-('moises', SHA2('moisespaso', 256), 'Moisés Alberto Domínguez Cruz', null, 0, 'usuario'),
-('juan', SHA2('juanpaso', 256), 'Juan Rivera', null, 0, 'usuario'),
-('juanmi', SHA2('juanmipaso', 256), 'Juan Miguel Dominguez', null, 0, 'usuario'),
-('heraclio', SHA2('heracliopaso', 256), 'Heraclio', null, 0, 'usuario'),
-('amor', SHA2('amorpaso', 256), 'amor <3', null, 0, 'usuario');
+('admin', SHA2('adminpaso', 256), 'Administrador del sistema', 0, null, 'admin'),
+('moises', SHA2('moisespaso', 256), 'Moisés Alberto Domínguez Cruz', 0, null, 'usuario'),
+('juan', SHA2('juanpaso', 256), 'Juan Rivera', 0, null, 'usuario'),
+('juanmi', SHA2('juanmipaso', 256), 'Juan Miguel Dominguez', 0, null, 'usuario'),
+('heraclio', SHA2('heracliopaso', 256), 'Heraclio', 0, null, 'usuario'),
+('amor', SHA2('amorpaso', 256), 'amor <3', 0, null, 'usuario');

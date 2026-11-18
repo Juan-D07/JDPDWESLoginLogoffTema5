@@ -135,12 +135,15 @@ if (isset($_REQUEST["aplicarCambios"])) {
                         <tr>
                     <td><label for="usuario" >Usuario:</label></td>
                     <td><input type="text" name="usuario" id="usuario" value="<?php echo $_SESSION['usuarioJDPDWESLoginLogoffTema5']['T01_CodUsuario']?>" readonly/></td>
-<?php echo!empty($aError["usuario"]) ? "<td><span style='color:red;'>" . $aError['usuario'] . "</span></td>" : '<td></td>' ?>
+                        </tr>
+                        <tr>
+                    <td><label for="usuario" >Perfil:</label></td>
+                    <td><input type="text" name="perfil" id="perfil" value="<?php echo $_SESSION['usuarioJDPDWESLoginLogoffTema5']['T01_Perfil']?>" readonly/></td>
                         </tr>
                         <tr>
                     <td><label for="contrasena" >Descripcion:</label></td>
                     <td><input type="text" name="descripcion" id="descripcion" value="<?php echo empty($aError["descripcion"]) ? "$sDescripcionMostrar" : '' ?>"/></td>
-<?php echo!empty($aError["descripcion"]) ? "<td><span style='color:red;'>" . $aError['descripcion'] . "</span></td>" : '' ?>
+<?php echo!empty($aError["descripcion"]) ? "<td><span style='color:red;'>" . $aError['descripcion'] . "</span></td>" : '<td></td>' ?>
                         </tr>
                     </table>
                     <br/>

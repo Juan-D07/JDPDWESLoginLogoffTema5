@@ -74,7 +74,7 @@ if (isset($_REQUEST["eliminar"])) {
         <main>
             <div class="container">
 
-                <h3>Confirmacion </h3>
+                <h3>Confirmación </h3>
                 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" novalidate>
                     <h4>
                         Estas seguro que quieres eliminar la cuenta 

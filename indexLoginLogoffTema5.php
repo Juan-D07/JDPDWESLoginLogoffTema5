@@ -1,12 +1,17 @@
 <?php
-
 // Si la cookie no fue elegida, la inicilizamos
 if (!isset($_COOKIE['cookieIdioma'])) {
     setcookie("cookieIdioma", "es", strtotime("+1 week"));
 }
-else{
-    setcookie("cookieIdioma", $_REQUEST['iniciarSesion'], strtotime("+1 week"));
+//si el usuario cambia de idioma a uno no saleccionado 
+if (isset($_REQUEST['idioma'])&&$_COOKIE['cookieIdioma']!=$_REQUEST['idioma']) {
+    echo 'xd';
+    setcookie("cookieIdioma", $_REQUEST['idioma'], strtotime("+1 week"));
+    // Recargamos la pagina para que $_COOKIE ya tenga el idioma nuevo y se marque su bandera
+    header("Location: ". $_SERVER['PHP_SELF']);
+    exit;
 }
+
 
 // comprueba si el boton iniciar sesion fue pulsado
 if (isset($_REQUEST['iniciarSesion'])) {
@@ -40,8 +45,8 @@ if (isset($_REQUEST['registrarse'])) {
                 <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
                     <select name="idioma" id="idioma" onchange="this.form.submit()">
                         <option value="es" <?php echo ($_COOKIE['cookieIdioma'] == 'es') ? 'selected' : ''; ?>>🇪🇸 Español</option>
-                        <option value="en" <?php echo ($_COOKIE['cookieIdioma'] == 'es') ? 'selected' : ''; ?>>🇬🇧 English</option>
-                        <option value="pt" selected>🇵🇹 Português</option>
+                        <option value="en" <?php echo ($_COOKIE['cookieIdioma'] == 'en') ? 'selected' : ''; ?>>🇬🇧 English</option>
+                        <option value="pt" <?php echo ($_COOKIE['cookieIdioma'] == 'pt') ? 'selected' : ''; ?>>🇵🇹 Português</option>
                     </select>
                 </form>
             </div>

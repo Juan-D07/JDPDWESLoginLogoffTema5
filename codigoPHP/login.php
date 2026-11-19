@@ -1,4 +1,10 @@
 <?php
+//Inicia la sesion o reanuda la session
+session_start();
+if (isset($_SESSION['usuarioJDPDWESLoginLogoffTema5'])) {
+    header("Location: ./inicioPrivado.php");
+    exit;
+}
 
 // comprueba si el boton cancelar fue pulsado
 if (isset($_REQUEST['cancelar'])) {
@@ -37,10 +43,9 @@ if (isset($_REQUEST["login"])) {
         WHERE T01_CodUsuario = :codUsuario and T01_Password = SHA2(:contrasena,256)
         sql;
         $selectUsuarioContrasena = $miDB->prepare($sqlSelect);
-        // trim elimina espacios antes y despues del texto
         $selectUsuarioContrasena->execute([
-            ':codUsuario' => trim($_REQUEST["usuario"]),
-            ':contrasena' => trim($_REQUEST["usuario"].$_REQUEST["contrasena"])
+            ':codUsuario' => $_REQUEST["usuario"],
+            ':contrasena' => $_REQUEST["usuario"].$_REQUEST["contrasena"]
         ]);
 
         if ($selectUsuarioContrasena->rowCount() != 1) {
@@ -63,8 +68,7 @@ else {
 // si los datos estan bien,
 // comprueba si el usuario existe en la base de datos
 if ($entradaOK) {
-    //Inicia la sesion
-    session_start();
+    
     //actualizamos los datos del usuario
     $actualizarUsuario = $miDB->prepare(
             "UPDATE T01_Usuario 
@@ -125,15 +129,11 @@ unset($miDB);
                     <input type="password" name="contrasena" id="contrasena" value="<?php echo!empty($_REQUEST["contrasena"]) ? $_REQUEST["contrasena"] : '' ?>"/>
 <?php echo!empty($aError["contrasena"]) ? "<span style='color:red;'>" . $aError['contrasena'] . "</span>" : '' ?>
                     <br/>
-                    <input type="submit" name="cancelar" id="cancelar" value="Cancelar"/>
                     <input type="submit" name="login" id="login" value="Log in"/>
+                    <input type="submit" name="cancelar" id="cancelar" value="Cancelar"/>
                     <br/>
                 </form> 
-
-
             </div>
-
-
         </main>
 
         <footer>

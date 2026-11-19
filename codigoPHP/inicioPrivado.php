@@ -2,19 +2,6 @@
 //Iniciamos la sesion
 session_start();
 
-// Si la cookie no fue elegida, la inicilizamos
-if (!isset($_COOKIE['cookieIdioma'])) {
-    setcookie("cookieIdioma", "es", strtotime("+1 week"));
-}
-else{
-    setcookie("cookieIdioma", $_REQUEST['iniciarSesion'], strtotime("+1 week"));
-}
-
-// Si la cookie no fue elegida, la inicilizamos
-if (!isset($_COOKIE['cookieIdioma'])) {
-    setcookie("cookieIdioma", "es", strtotime("+1 week"));
-}
-
 // Si el usuario no ha iniciado la sesion, lo redirigimos al login
 if (!isset($_SESSION['usuarioJDPDWESLoginLogoffTema5'])) {
     header("Location: login.php");
@@ -44,7 +31,7 @@ if ($_COOKIE['cookieIdioma']==="es"){
     $scadenaBienvenida="Welcome ".$_SESSION['usuarioJDPDWESLoginLogoffTema5']['T01_DescUsuario']." to the Private Access";
 }
 else{
-    $scadenaBienvenida="Bienvediño ".$_SESSION['usuarioJDPDWESLoginLogoffTema5']['T01_DescUsuario']." al Accehio Privadihio";
+    $scadenaBienvenida="Bienvedihio ".$_SESSION['usuarioJDPDWESLoginLogoffTema5']['T01_DescUsuario']." al Accehio Privadihio";
 }
 ?>
 
@@ -63,26 +50,13 @@ else{
                 <img src="../webroot/images/logoProyectoTema5.png" alt="logo"/>
             </div>
             <h2> Inicio Privado</h2>
-            <div class="idiomaDiv">
-                <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-
-                    <select name="idioma" id="idioma" onchange="this.form.submit()">
-
-                        <option value="es">🇪🇸 Español</option>
-                        <option value="en">🇬🇧 English</option>
-                        <option value="pt">🇵🇹 Português</option>
-
-                    </select>
-
-                </form>
-            </div>
 
         </header>
 
         <main>
             <div class="container">
             
-            <h3>Bienvenido <?php echo $_SESSION['usuarioJDPDWESLoginLogoffTema5']['T01_DescUsuario']; ?> al Accesso Privado </h3>
+            <h3> <?php echo $scadenaBienvenida; ?> </h3>
             
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
                 <input type="submit" name="cerrarSesion" id="cerrarSesion" class="botonLargo" value="Cerrar Sesion"/>

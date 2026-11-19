@@ -1,4 +1,13 @@
 <?php
+
+// Si la cookie no fue elegida, la inicilizamos
+if (!isset($_COOKIE['cookieIdioma'])) {
+    setcookie("cookieIdioma", "es", strtotime("+1 week"));
+}
+else{
+    setcookie("cookieIdioma", $_REQUEST['iniciarSesion'], strtotime("+1 week"));
+}
+
 // comprueba si el boton iniciar sesion fue pulsado
 if (isset($_REQUEST['iniciarSesion'])) {
     header("Location: codigoPHP/login.php");
@@ -27,7 +36,15 @@ if (isset($_REQUEST['registrarse'])) {
                 <img src="webroot/images/logoProyectoTema5.png" alt="logo"/>
             </div>
             <h2> Inicio Publico</h2>
-
+            <div class="idiomaDiv">
+                <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+                    <select name="idioma" id="idioma" onchange="this.form.submit()">
+                        <option value="es" <?php echo ($_COOKIE['cookieIdioma'] == 'es') ? 'selected' : ''; ?>>🇪🇸 Español</option>
+                        <option value="en" <?php echo ($_COOKIE['cookieIdioma'] == 'es') ? 'selected' : ''; ?>>🇬🇧 English</option>
+                        <option value="pt" selected>🇵🇹 Português</option>
+                    </select>
+                </form>
+            </div>
         </header>
 
         <main>

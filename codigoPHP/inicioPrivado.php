@@ -2,6 +2,19 @@
 //Iniciamos la sesion
 session_start();
 
+// Si la cookie no fue elegida, la inicilizamos
+if (!isset($_COOKIE['cookieIdioma'])) {
+    setcookie("cookieIdioma", "es", strtotime("+1 week"));
+}
+else{
+    setcookie("cookieIdioma", $_REQUEST['iniciarSesion'], strtotime("+1 week"));
+}
+
+// Si la cookie no fue elegida, la inicilizamos
+if (!isset($_COOKIE['cookieIdioma'])) {
+    setcookie("cookieIdioma", "es", strtotime("+1 week"));
+}
+
 // Si el usuario no ha iniciado la sesion, lo redirigimos al login
 if (!isset($_SESSION['usuarioJDPDWESLoginLogoffTema5'])) {
     header("Location: login.php");
@@ -24,6 +37,15 @@ if (isset($_REQUEST['entrarDetalle'])) {
     header("Location: ./detalle.php");
     exit();
 }
+
+if ($_COOKIE['cookieIdioma']==="es"){
+    $scadenaBienvenida="Bienvenido ".$_SESSION['usuarioJDPDWESLoginLogoffTema5']['T01_DescUsuario']." al Accesso Privado";
+}elseif($_COOKIE['cookieIdioma']==="en"){
+    $scadenaBienvenida="Welcome ".$_SESSION['usuarioJDPDWESLoginLogoffTema5']['T01_DescUsuario']." to the Private Access";
+}
+else{
+    $scadenaBienvenida="Bienvediño ".$_SESSION['usuarioJDPDWESLoginLogoffTema5']['T01_DescUsuario']." al Accehio Privadihio";
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,11 +64,17 @@ if (isset($_REQUEST['entrarDetalle'])) {
             </div>
             <h2> Inicio Privado</h2>
             <div class="idiomaDiv">
-                <select name="idioma" id="idioma">
-                    <option value="es"><img src="../webroot/images/ES.png" alt="alt"/></option>
-                    <option value="en"><img src="../webroot/images/EN.png" alt="alt"/></option>
-                    <option value="pt"><img src="../webroot/images/PT.png" alt="alt"/></option>
-                </select>
+                <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
+
+                    <select name="idioma" id="idioma" onchange="this.form.submit()">
+
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="en">🇬🇧 English</option>
+                        <option value="pt">🇵🇹 Português</option>
+
+                    </select>
+
+                </form>
             </div>
 
         </header>

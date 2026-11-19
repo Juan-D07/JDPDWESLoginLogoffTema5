@@ -5,13 +5,11 @@ if (!isset($_COOKIE['cookieIdioma'])) {
 }
 //si el usuario cambia de idioma a uno no saleccionado 
 if (isset($_REQUEST['idioma'])&&$_COOKIE['cookieIdioma']!=$_REQUEST['idioma']) {
-    echo 'xd';
     setcookie("cookieIdioma", $_REQUEST['idioma'], strtotime("+1 week"));
     // Recargamos la pagina para que $_COOKIE ya tenga el idioma nuevo y se marque su bandera
     header("Location: ". $_SERVER['PHP_SELF']);
     exit;
 }
-
 
 // comprueba si el boton iniciar sesion fue pulsado
 if (isset($_REQUEST['iniciarSesion'])) {

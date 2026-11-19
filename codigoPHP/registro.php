@@ -44,7 +44,7 @@ if (isset($_REQUEST["crearUsuario"])) {
         $selectUsuario = $miDB->prepare($sqlSelect);
         // trim elimina espacios antes y despues del texto, saneamiento de datos
         $selectUsuario->execute([
-            ':codUsuario' => trim($_REQUEST["usuario"])
+            ':codUsuario' => $_REQUEST["usuario"]
         ]);
 
         if ($selectUsuario->rowCount() != 0) {
@@ -71,14 +71,14 @@ if ($entradaOK) {
     $insertarUsuario = $miDB->prepare(
             "INSERT INTO T01_Usuario VALUES (:usuario, SHA2(:contrasena, 256), :descripcion, 1, now(), 'usuario')"
     );
-    $insertarUsuario->execute([':usuario' => trim($_REQUEST["usuario"]),
-        ':contrasena' => trim($_REQUEST["usuario"]).trim($_REQUEST["contrasena"]),
-        ':descripcion' => trim($_REQUEST["descripcion"])
+    $insertarUsuario->execute([':usuario' => $_REQUEST["usuario"],
+        ':contrasena' => $_REQUEST["usuario"].$_REQUEST["contrasena"],
+        ':descripcion' => $_REQUEST["descripcion"]
         ]);
     
     //volvemos a ejecutar el select del usuario para recoger sus datos y anadirlos a la sesion
     $selectUsuario->execute([
-        ':codUsuario' => trim($_REQUEST["usuario"])
+        ':codUsuario' => $_REQUEST["usuario"]
     ]);
 
     //recogemos usuario

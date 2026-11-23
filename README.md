@@ -27,6 +27,7 @@ Abrir un navegador web.
 Crear nuevas tareas y gestionar las existentes.
 ## 5. Estructura del proyecto
 
+```text
 JDPDWESLoginLogoffTema5/
 ├── indexLoginLogoffTema5.php
 ├── .htaccess
@@ -36,6 +37,7 @@ JDPDWESLoginLogoffTema5/
 ├── webroot
 ├── error
 └── core
+```
 
 ## 6. Funcionalidades
 - Uso de sesion y cookies

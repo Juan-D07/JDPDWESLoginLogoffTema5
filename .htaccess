@@ -6,5 +6,5 @@ DirectoryIndex indexLoginLogoffTema5.php
 Options -Indexes
 
 # Control de errores con las paginas de este proyecto (carpeta error/)
-ErrorDocument 404 /MDCDWESProyectoLoginLogoffTema5/error/404.html
-ErrorDocument 403 /MDCDWESProyectoLoginLogoffTema5/error/403.html
+ErrorDocument 404 /JDPDWESProyectoLoginLogoffTema5/error/404.html
+ErrorDocument 403 /JDPDWESProyectoLoginLogoffTema5/error/403.html

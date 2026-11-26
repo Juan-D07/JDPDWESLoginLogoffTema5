@@ -2,6 +2,9 @@
 // Si la cookie no fue elegida, la inicilizamos
 if (!isset($_COOKIE['cookieIdioma'])) {
     setcookie("cookieIdioma", "es", strtotime("+1 week"));
+    // Recargamos la pagina para que $_COOKIE ya tenga el idioma nuevo
+    header("Location: ". $_SERVER['PHP_SELF']);
+    exit;
 }
 //si el usuario cambia de idioma a uno no saleccionado 
 if (isset($_REQUEST['idioma'])&&$_COOKIE['cookieIdioma']!=$_REQUEST['idioma']) {

@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS DBJDPDWESProyectoTema5;
-USE DBJDPDWESProyectoTema5;
+CREATE DATABASE IF NOT EXISTS DBJDPDWESLoginLogoffTema5;
+USE DBJDPDWESLoginLogoffTema5;
 
 CREATE TABLE IF NOT EXISTS T01_Usuario (
     T01_CodUsuario VARCHAR(255) PRIMARY KEY,
@@ -16,5 +16,5 @@ CREATE TABLE IF NOT EXISTS T02_Departamento (
     T02_VolumenDeNegocio float,
     T02_FechaBajaDepartamento datetime default null)engine=InnoDB;
     
-CREATE USER 'userJDPDWESProyectoTema5'@'%' IDENTIFIED BY 'paso';
-GRANT ALL ON DBJDPDWESProyectoTema5.* to 'userJDPDWESProyectoTema5'@'%';
+CREATE USER 'userJDPDWESLoginLogoffTema5'@'%' IDENTIFIED BY 'paso';
+GRANT ALL ON DBJDPDWESLoginLogoffTema5.* to 'userJDPDWESLoginLogoffTema5'@'%';

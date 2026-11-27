@@ -1,4 +1,4 @@
-USE DBJDPDWESProyectoTema5;
+USE DBJDPDWESLoginLogoffTema5;
 
 INSERT INTO T02_Departamento VALUES
 ('VTA', 'Departamento de Ventas y Comercialización', '2015-01-15 09:00:00', 1250500.75, NULL),

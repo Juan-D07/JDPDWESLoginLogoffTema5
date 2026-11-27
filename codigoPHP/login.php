@@ -127,7 +127,7 @@ unset($miDB);
 
                     <label for="contrasena" >Contrasena:</label>
                     <input type="password" name="contrasena" id="contrasena" value="<?php echo!empty($_REQUEST["contrasena"]) ? $_REQUEST["contrasena"] : '' ?>"/>
-<?php echo!empty($aError["contrasena"]) ? "<span style='color:red;'>" . $aError['contrasena'] . "</span>" : '' ?>
+<?php echo!empty($aError["contrasena"]) ? "<br/><br/><span style='color:red;'>" . $aError['contrasena'] . "</span>" : '' ?>
                     <br/>
                     <input type="submit" name="login" id="login" value="Log in"/>
                     <input type="submit" name="cancelar" id="cancelar" value="Cancelar"/>

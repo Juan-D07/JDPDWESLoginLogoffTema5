@@ -1,4 +1,0 @@
-USE mysql;
-DROP USER IF EXISTS 'userJDPDWESProyectoTema5'@'%';
-DROP DATABASE IF EXISTS DBJDPDWESProyectoTema5;
-

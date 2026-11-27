@@ -16,7 +16,7 @@ define('PASS', "paso");
 
 
 //Configuracion de Explotacion
-//define('HOST', "mysql:host=localhost;dbname=DBJDPDWESLoginLogoffTema5;charset=utf8mb4");
+//define('DSN', "mysql:host=localhost;dbname=DBJDPDWESLoginLogoffTema5;charset=utf8mb4");
 //define('USER', "userJDPDWESLoginLogoffTema5");
 //define('PASS', "paso1234@@@");
 
